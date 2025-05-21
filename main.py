@@ -49,4 +49,4 @@ class Schueler:
         * Sport
         * Wirtschaftslehre
         """
-        return dn1 + dn2 + dn2 / 3
+        return float(dn1) + 2 * float(dn2) / 3
