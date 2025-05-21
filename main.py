@@ -52,7 +52,7 @@ class Schueler:
         return (float(dn1) + 2 * float(dn2)) / 3
 
 class Klasse:
-    schueler:list[Schueler]
+    schueler:list[Schueler] = []
 
     def read_csv_file(self,path:str,seperator=",") ->  None:
         with open(path) as csvfile:
@@ -68,8 +68,16 @@ class Klasse:
                     if j == 0:
                         name = columns[j]
                     else:
-                        noten[headline[j]] = columns[j]
+                        noten[headline[j]] = int(columns[j])
                 self.schueler.append(Schueler(name,noten))
 
-    def __getitem__(self,name:str) -> Schueler|None :
-        return next((obj for obj in self.schueler if obj.name == name), None)
+    def __getitem__(self,name:str) -> Schueler :
+        result = next((obj for obj in self.schueler if obj.name == name), None)
+        if result == None:
+            raise Exception("Kein Schueler mit dem Name gefunden")
+        return result
+
+
+kl = Klasse()
+kl.read_csv_file("test.csv")
+print(kl["Name1"]["LF1"])
