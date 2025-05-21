@@ -1,3 +1,5 @@
+import csv
+
 class Schueler:
     def __init__(self,name:str,noten:dict) -> None:
         self.name = name
@@ -52,3 +54,14 @@ class Schueler:
         * Wirtschaftslehre
         """
         return dn1 + dn2 + dn2 / 3
+
+class CsvManager:
+    def getStudentsFromCsv(path):
+        with open(path, 'w', newline='') as csvfile:
+            spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
+            a = []
+            for row in spamreader:
+                print(', '.join(row))
+                a.append(Schueler("ralf", {"de": 1, "en": 4}))
+                        
+        return a
