@@ -11,19 +11,19 @@ class Schueler:
             else:
                 allgemeinbildende_faecher.append(noten[key])
 
-        dn1 = self.calc_durchschnittsnote(*allgemeinbildende_faecher)
-        dn2 = self.calc_durchschnittsnote(*lernfelder)
+        dn1 = self.__calc_durchschnittsnote(*allgemeinbildende_faecher)
+        dn2 = self.__calc_durchschnittsnote(*lernfelder)
 
         self.durchschnitt_allgemeinbildende_faecher = dn1
         self.durchschnitt_lernfelder = dn2
-        self.gesamtnote = self.calc_gesamtnote(dn1,dn2)
+        self.gesamtnote = self.__calc_gesamtnote(dn1,dn2)
 
     def __getitem__(self,key:str) -> float|int:
         if key in self.noten:
             return self.noten[key]
         raise Exception("Es existiert keine Note für den gewählten Fach")
 
-    def calc_durchschnittsnote(self,*note:int) -> float:
+    def __calc_durchschnittsnote(self,*note:int) -> float:
         """
         Die durchschnittsnote wird auf eine Stelle nach dem Komma kaufmännisch gerundet.
         """
@@ -33,7 +33,7 @@ class Schueler:
         durchschnitt = (durchschnitt // 10) + (1 if letzte_ziffer >= 5 else 0)
         return durchschnitt / 10
 
-    def calc_gesamtnote(self,dn1:float|int,dn2:float|int) -> float:
+    def __calc_gesamtnote(self,dn1:float|int,dn2:float|int) -> float:
         """
         # Berechnung
 
