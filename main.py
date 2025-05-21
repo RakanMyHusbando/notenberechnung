@@ -53,13 +53,22 @@ class Schueler:
         """
         return (float(dn1) + 2 * float(dn2)) / 3
 
-class CsvManager:
-    def getStudentsFromCsv(path):
-        with open(path, 'w', newline='') as csvfile:
-            spamreader = csv.reader(csvfile, delimiter=' ', quotechar='|')
-            a = []
-            for row in spamreader:
-                print(', '.join(row))
-                a.append(Schueler("ralf", {"de": 1, "en": 4}))
-                        
-        return a
+class Klasse:
+    schueler:list[Schueler]
+
+    def read_csv_file(self,path:str,seperator=",") ->  None:
+        with open(path) as csvfile:
+            rows = csvfile.readlines()
+            headline = rows[0].split(seperator)
+            for i in range(len(rows)):
+                name = ""
+                noten = {}
+                if i == 0:
+                    continue
+                columns = rows[i].split(seperator)
+                for j in range(len(columns)):
+                    if j == 0:
+                        name = columns[j]
+                    else:
+                        noten[headline[j]] = columns[j]
+                self.schueler.append(Schueler(name,noten))
