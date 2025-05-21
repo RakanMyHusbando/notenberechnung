@@ -1,5 +1,3 @@
-import csv
-
 class Schueler:
     def __init__(self,name:str,noten:dict) -> None:
         self.name = name
@@ -72,3 +70,6 @@ class Klasse:
                     else:
                         noten[headline[j]] = columns[j]
                 self.schueler.append(Schueler(name,noten))
+
+    def __getitem__(self,name:str) -> Schueler|None :
+        return next((obj for obj in self.schueler if obj.name == name), None)
