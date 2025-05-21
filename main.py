@@ -11,15 +11,19 @@ class Schueler:
             else:
                 allgemeinbildende_faecher.append(noten[key])
 
-        self.durchschnittsnote = {
-            "allgemeinbildende_faecher": self.calc_durchschnittsnote(*allgemeinbildende_faecher),
-            "lernfelder": self.calc_durchschnittsnote(*lernfelder)
-        }
+        self.dn1 = self.calc_durchschnittsnote(*allgemeinbildende_faecher)
+        self.dn2 = self.calc_durchschnittsnote(*lernfelder)
 
-        self.gesamtnote = self.calc_gesamtnote(
-            self.durchschnittsnote["allgemeinbildende_faecher"],
-            self.durchschnittsnote["lernfelder"]
-        )
+        self.gesamtnote = self.calc_gesamtnote(self.dn1,self.dn2)
+
+    def __getitem__(self,key:str) -> float|int:
+        if key in self.noten:
+            return self.noten[key]
+        elif key == "durchschnitt_allgemeinbildende_faecher":
+            return self.dn1
+        elif key == "durchschnitt_lernfelder":
+            return self.dn2
+        raise Exception("Es existiert keine Note für den gewählten key")
 
     def calc_durchschnittsnote(self,*note:int) -> float:
         """
