@@ -13,19 +13,17 @@ class Schueler:
             else:
                 allgemeinbildende_faecher.append(noten[key])
 
-        self.dn1 = self.calc_durchschnittsnote(*allgemeinbildende_faecher)
-        self.dn2 = self.calc_durchschnittsnote(*lernfelder)
+        dn1 = self.calc_durchschnittsnote(*allgemeinbildende_faecher)
+        dn2 = self.calc_durchschnittsnote(*lernfelder)
 
-        self.gesamtnote = self.calc_gesamtnote(self.dn1,self.dn2)
+        self.durchschnitt_allgemeinbildende_faecher = dn1
+        self.durchschnitt_lernfelder = dn2
+        self.gesamtnote = self.calc_gesamtnote(dn1,dn2)
 
     def __getitem__(self,key:str) -> float|int:
         if key in self.noten:
             return self.noten[key]
-        elif key == "durchschnitt_allgemeinbildende_faecher":
-            return self.dn1
-        elif key == "durchschnitt_lernfelder":
-            return self.dn2
-        raise Exception("Es existiert keine Note für den gewählten key")
+        raise Exception("Es existiert keine Note für den gewählten Fach")
 
     def calc_durchschnittsnote(self,*note:int) -> float:
         """
@@ -53,7 +51,7 @@ class Schueler:
         * Sport
         * Wirtschaftslehre
         """
-        return dn1 + dn2 + dn2 / 3
+        return (float(dn1) + 2 * float(dn2)) / 3
 
 class CsvManager:
     def getStudentsFromCsv(path):
