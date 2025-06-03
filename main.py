@@ -40,12 +40,6 @@ class Schueler:
     def __calc_durchschnittsnote(self,*note):
         """
         Die durchschnittsnote wird auf eine Stelle nach dem Komma kaufmännisch gerundet.
-
-        durchschnitt =  sum(note) / len(note)
-        durchschnitt = int(abs(durchschnitt) * 100)
-        letzte_ziffer = durchschnitt % 10
-        durchschnitt = (durchschnitt // 10) + (1 if letzte_ziffer >= 5 else 0)
-        return durchschnitt / 10
         """
         result = (Decimal(sum(note)) / Decimal(len(note))).quantize(Decimal("0.1"),rounding=ROUND_HALF_UP)
         return result
